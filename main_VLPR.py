@@ -197,29 +197,27 @@ class Surface(ttk.Frame):
             r_c, roi_c, color_c = th1.join()
             r_color, roi_color, color_color = th2.join()
 
-            '''
-                        # 连接服务器操作
-                        connection = pymysql.connect(host='152.136.105.72',  # 服务器地址
-                                                     user='root',  # 数据库账号
-                                                     password='12345',  # 数据库密码
-                                                     db='tcc',  # 使用的是tcc这个表
-                                                     charset='utf8mb4'
-                                                     )
+            # 连接服务器操作
+            connection = pymysql.connect(host='152.136.105.72',  # 服务器地址
+                                         user='root',  # 数据库账号
+                                         password='tcc2019!.!',  # 数据库密码
+                                         db='tcc',  # 使用的是tcc这个表
+                                         charset='utf8mb4'
+                                         )
 
-                        try:
-                            with connection.cursor() as cursor:
-                                # 创建sql语句
-                                sql = "insert into `tcc_tbl` (`tcc_title`, `tcc_author`, `submission_date`) values (%s, %s, %s)"
-                                # 执行sql语句
-                                tmp = time.localtime(time.time() - random.random() * 60 * 60 * 24 * 30)
-                                dateTime = time.strftime('%Y-%m-%d %H:%M:%S', tmp)
-                                cursor.execute(sql, ("".join(r_c), "测试author", dateTime))
-                                # 提交
-                                connection.commit()
-                                print('插入成功!')
-                        finally:
-                            connection.close()
-            '''
+            try:
+                with connection.cursor() as cursor:
+                    # 创建sql语句
+                    sql = "insert into `tcc_tbl` (`tcc_title`, `tcc_author`, `tcc_indata`, `flag`) values (%s, %s, %s, %s)"
+                    # 执行sql语句
+                    tmp = time.localtime(time.time())
+                    dateTime = time.strftime('%Y-%m-%d %H:%M:%S', tmp)
+                    cursor.execute(sql, ("".join(r_c), "测试author", dateTime, '2'))
+                    # 提交
+                    connection.commit()
+                    print('插入成功!')
+            finally:
+                connection.close()
             self.show_roi2(r_color, roi_color, color_color)
 
             self.show_roi1(r_c, roi_c, color_c)
@@ -271,7 +269,7 @@ class Surface(ttk.Frame):
                     if (r_c is not None and len(r_c) != 0):
 
                         # 创建sql语句
-                        sql = "insert into `tcc_tbl` (`tcc_title`, `tcc_author`, `tcc_indata`, `tcc_outdata`, `flag`) values (%s, %s, %s, %s, %s)"
+                        sql = "insert into `tcc_tbl` (`tcc_title`, `tcc_author`, `tcc_indata`, `flag`) values (%s, %s, %s, %s)"
                         # 执行sql语句
 
                         inDate = time.localtime(time.time())
